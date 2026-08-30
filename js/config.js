@@ -2,7 +2,7 @@
 const FLOWERS_CONFIG = {
   recipient: "Estefanía",
   sender: "Obed",
-  memoryDate: "21 · 09 · 2026",
+  memoryDate: "21 · 06 · 2025",
   photoStripBack: "No importa cuántas fotos tengamos; siempre voy a querer guardar un momento más contigo.",
   dedication: "Hoy quiero regalarte flores amarillas porque haces que mis días sean más bonitos.",
   gardenMessage: "Estas flores son apenas un reflejo de toda la alegría que traes a mi vida. Gracias por hacer florecer mis días con tu presencia.",
