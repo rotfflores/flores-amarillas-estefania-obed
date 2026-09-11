@@ -1031,6 +1031,33 @@
 
   setupGrowingGarden();
 
+  const daysCount = $("#days-together-count");
+  let daysAnimation = 0;
+
+  function animateDaysTogether() {
+    if (!daysCount) return;
+    cancelAnimationFrame(daysAnimation);
+    const startParts = String(config.relationshipStart || "2025-06-21").split("-").map(Number);
+    const now = new Date();
+    const startUtc = Date.UTC(startParts[0], startParts[1] - 1, startParts[2]);
+    const todayUtc = Date.UTC(now.getFullYear(), now.getMonth(), now.getDate());
+    const totalDays = Math.max(0, Math.floor((todayUtc - startUtc) / 86400000));
+    daysCount.setAttribute("aria-label", `${totalDays} días juntos`);
+    if (reducedMotion) {
+      daysCount.textContent = totalDays.toLocaleString("es-MX");
+      return;
+    }
+    const startedAt = performance.now();
+    const duration = 1900;
+    const tick = (time) => {
+      const progress = Math.min(1, (time - startedAt) / duration);
+      const eased = 1 - Math.pow(1 - progress, 4);
+      daysCount.textContent = Math.round(totalDays * eased).toLocaleString("es-MX");
+      if (progress < 1) daysAnimation = requestAnimationFrame(tick);
+    };
+    daysAnimation = requestAnimationFrame(tick);
+  }
+
   function setupWrappedStories() {
     const cards = $$("#experience > section");
     const segments = $("#story-segments");
@@ -1096,6 +1123,7 @@
       nextButton.classList.toggle("is-locked", cardLocked);
       if (activeCard === 1) window.playYellowUniverseIntro?.();
       if (activeCard === 5) prepareGiftGame();
+      if (cards[activeCard].classList.contains("days-together")) animateDaysTogether();
       if (activeCard === cards.length - 1) {
         const finalCard = cards[activeCard];
         finalCard.classList.remove("is-final-playing");
