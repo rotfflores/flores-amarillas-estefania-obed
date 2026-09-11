@@ -1100,6 +1100,19 @@ body.stories-active {
 @media (max-height:680px) { .days-together__record { margin-top:13px; padding:11px 16px 9px; border-radius:23px; } .days-together__record-label { font-size:.59rem; } .days-together__number { font-size:6.9rem; } .days-together__copy { margin-top:5px; } }
 @media (prefers-reduced-motion:reduce) { .welcome__glow,.welcome .envelope--intro,.days-together::before { animation:none; } .days-together.is-active .days-together__record { animation:none; opacity:1; transform:none; } .days-together.is-active .days-together__timeline span { animation:none; width:100%; } .days-together.is-active .days-together__timeline i { animation:none; left:100%; } }
 
+/* Fecha visible en el sobre de la carta. */
+.letter-envelope__date { position:absolute; z-index:8; left:50%; bottom:68px; margin:0 !important; color:#7a5218; font:700 .62rem/1 var(--sans) !important; letter-spacing:.18em; text-transform:uppercase; text-shadow:0 1px rgba(255,246,207,.7); transform:translateX(-50%); white-space:nowrap; }
+.letter-section.is-opening .letter-envelope__date { opacity:0; transition:opacity .28s; }
+
+/* Fondo Wrapped orgánico: confeti, destellos y manchas sin líneas concéntricas. */
+.days-together::before { inset:-8%; background:radial-gradient(circle at 8% 18%,#ffe74e 0 2.7%,transparent 2.9%),radial-gradient(circle at 91% 76%,#ff792c 0 22%,transparent 22.3%),radial-gradient(ellipse at 16% 85%,rgba(255,190,39,.62) 0 12%,transparent 12.4%),radial-gradient(ellipse at 82% 8%,rgba(250,166,48,.72) 0 13%,transparent 13.4%),radial-gradient(circle at 29% 19%,rgba(255,250,196,.75) 0 3px,transparent 4px),radial-gradient(circle at 73% 31%,rgba(255,229,75,.75) 0 4px,transparent 5px),radial-gradient(circle at 18% 58%,rgba(255,245,187,.6) 0 2px,transparent 3px),radial-gradient(circle at 67% 82%,rgba(255,232,83,.7) 0 3px,transparent 4px),linear-gradient(155deg,#3c116f 0%,#6320a0 48%,#8a2c88 100%); animation:days-bg-drift 9s ease-in-out infinite alternate; }
+.days-together__halo { top:51%; width:min(82vw,470px); border-radius:42% 58% 63% 37% / 51% 36% 64% 49%; background:radial-gradient(circle at 35% 28%,rgba(255,239,108,.19),transparent 28%),linear-gradient(135deg,rgba(255,165,37,.18),rgba(255,238,91,.04)); box-shadow:0 0 70px rgba(255,174,38,.12); filter:blur(1px); transform:translate(-50%,-50%) rotate(-7deg); animation:days-blob-float 7s ease-in-out infinite alternate; }
+.days-together__halo::before,.days-together__halo::after { content:"✦"; position:absolute; color:#ffe94f; font-size:1.35rem; text-shadow:0 0 18px rgba(255,232,73,.7); }
+.days-together__halo::before { left:-5%; top:18%; transform:rotate(14deg); }
+.days-together__halo::after { right:3%; bottom:12%; font-size:.9rem; transform:rotate(-18deg); }
+@keyframes days-blob-float { to { border-radius:58% 42% 38% 62% / 43% 59% 41% 57%; transform:translate(-48%,-52%) rotate(4deg) scale(1.04); } }
+@media (prefers-reduced-motion:reduce) { .days-together__halo { animation:none; } }
+
 /* Card 6 · Elige un regalo */
 .stories-active .wrapped-card.gift-game {
   display: flex;
