@@ -1047,13 +1047,23 @@
       daysCount.textContent = totalDays.toLocaleString("es-MX");
       return;
     }
+    daysCount.classList.remove("is-settled");
+    daysCount.classList.add("is-counting");
     const startedAt = performance.now();
-    const duration = 1900;
+    const duration = 4600;
     const tick = (time) => {
       const progress = Math.min(1, (time - startedAt) / duration);
-      const eased = 1 - Math.pow(1 - progress, 4);
+      const eased = progress < .82
+        ? 1 - Math.pow(1 - progress / .82, 2.6)
+        : 1 + Math.sin((progress - .82) / .18 * Math.PI * 3) * (1 - progress) * .055;
       daysCount.textContent = Math.round(totalDays * eased).toLocaleString("es-MX");
       if (progress < 1) daysAnimation = requestAnimationFrame(tick);
+      else {
+        daysCount.textContent = totalDays.toLocaleString("es-MX");
+        daysCount.classList.remove("is-counting");
+        daysCount.classList.add("is-settled");
+        setTimeout(() => daysCount.classList.remove("is-settled"), 850);
+      }
     };
     daysAnimation = requestAnimationFrame(tick);
   }
